@@ -25,19 +25,56 @@ board= [[".",".",".","9",".",".",".",".","."]
        ,[".",".",".",".",".",".",".",".","."]
        ,["8",".",".","8",".",".",".",".","."]]
 
+board=[["5","3",".",".","7",".",".",".","."]
+      ,["6",".",".","1","9","5",".",".","."]
+      ,[".","9","1",".",".",".",".","6","."]
+      ,["8",".",".",".","6",".",".",".","3"]
+      ,["4",".",".","8",".","3",".",".","1"]
+      ,["7",".",".",".","2",".",".",".","6"]
+      ,[".","6",".",".",".",".","2","8","."]
+      ,[".",".",".","4","1","9",".",".","5"]
+      ,[".",".",".",".","8",".",".","7","9"]]
+
+
 def validSudokuCheck(board):
-    list=""
+    
+    columns = list(zip(*board))
     for x in range(9):
         for y in range(9):
-            for z in range (x,9):    
-                for k in range (y,9):
-
-                        if board[x][y]!="." and (board[x][y]==board[x][k] or board[x][y]==board[z][y]):
-                            if x!=z or k!=y:
-
-        
-                                return [x,y,z,k]
+            if board[x][y]!=".":
+                if board[x][y] in columns[y][x+1:9] or board[x][y] in board[x][y+1:9]:
+                    return False
+                t1=columns[3*(x//3):3*(x//3)+3]
+                counter=0
+                for t in range (3):
+                    if board[x][y] in (t1[t][3*(y//3):3*(y//3)+3]):
+                        counter+=1
+                        if counter==2:
+                            return False
+             
+            
     return True
                     
                     
 print(validSudokuCheck(board))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
